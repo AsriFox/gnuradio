@@ -384,6 +384,10 @@ option(ENABLE_COMPLETION_ZSH
     "Enable installation of zsh completions \
     for executable scripts in post-install phase" ON)
 
+option(ENABLE_COMPLETION_FISH
+    "Enable installation of fish completions \
+    for executable scripts in post-install phase" ON)
+
 ########################################################################
 # Add subdirectories (in order of deps)
 ########################################################################

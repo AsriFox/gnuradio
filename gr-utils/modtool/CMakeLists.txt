@@ -63,6 +63,21 @@ if(ENABLE_POSTINSTALL)
             DESTINATION ${GR_DATA_DIR}/zsh/vendor-completions/
         )
     endif(ENABLE_COMPLETION_ZSH)
+
+    if(ENABLE_COMPLETION_FISH)
+        install(DIRECTORY DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/fish-completion)
+        install(CODE
+            "execute_process(\
+                COMMAND env _GR_MODTOOL_COMPLETE=fish_source \
+                    ${CMAKE_INSTALL_PREFIX}/${GR_RUNTIME_DIR}/gr_modtool \
+                OUTPUT_FILE ${CMAKE_CURRENT_BINARY_DIR}/fish-completion/gr_modtool.fish \
+                COMMAND_ERROR_IS_FATAL ANY\
+            )")
+        install(
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/fish-completion/gr_modtool.fish
+            DESTINATION ${GR_DATA_DIR}/fish/vendor-completions.d/
+        )
+    endif(ENABLE_COMPLETION_FISH)
 endif(ENABLE_POSTINSTALL)
 
 ########################################################################
