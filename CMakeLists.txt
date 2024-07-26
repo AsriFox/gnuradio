@@ -376,6 +376,10 @@ find_package(MPLIB)
 ########################################################################
 gr_register_component("post-install" ENABLE_POSTINSTALL)
 
+option(ENABLE_COMPLETION_BASH
+    "Enable installation of bash completions \
+    for executable scripts in post-install phase" ON)
+
 ########################################################################
 # Add subdirectories (in order of deps)
 ########################################################################

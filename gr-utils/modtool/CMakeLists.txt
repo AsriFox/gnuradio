@@ -33,6 +33,23 @@ GR_PYTHON_INSTALL(
     DESTINATION ${GR_RUNTIME_DIR}
 )
 
+if(ENABLE_POSTINSTALL)
+    if(ENABLE_COMPLETION_BASH)
+        install(DIRECTORY DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bash-completion)
+        install(CODE
+            "execute_process(\
+                COMMAND env _GR_MODTOOL_COMPLETE=bash_source \
+                    ${CMAKE_INSTALL_PREFIX}/${GR_RUNTIME_DIR}/gr_modtool \
+                OUTPUT_FILE ${CMAKE_CURRENT_BINARY_DIR}/bash-completion/gr_modtool \
+                COMMAND_ERROR_IS_FATAL ANY\
+            )")
+        install(
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/bash-completion/gr_modtool
+            DESTINATION ${GR_DATA_DIR}/bash-completion/completions/
+        )
+    endif(ENABLE_COMPLETION_BASH)
+endif(ENABLE_POSTINSTALL)
+
 ########################################################################
 # Add subdirectories
 ########################################################################
