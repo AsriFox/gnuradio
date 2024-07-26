@@ -48,6 +48,21 @@ if(ENABLE_POSTINSTALL)
             DESTINATION ${GR_DATA_DIR}/bash-completion/completions/
         )
     endif(ENABLE_COMPLETION_BASH)
+
+    if(ENABLE_COMPLETION_ZSH)
+        install(DIRECTORY DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/zsh-completion)
+        install(CODE
+            "execute_process(\
+                COMMAND env _GR_MODTOOL_COMPLETE=zsh_source \
+                    ${CMAKE_INSTALL_PREFIX}/${GR_RUNTIME_DIR}/gr_modtool \
+                OUTPUT_FILE ${CMAKE_CURRENT_BINARY_DIR}/zsh-completion/_gr_modtool \
+                COMMAND_ERROR_IS_FATAL ANY\
+            )")
+        install(
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/zsh-completion/_gr_modtool
+            DESTINATION ${GR_DATA_DIR}/zsh/vendor-completions/
+        )
+    endif(ENABLE_COMPLETION_ZSH)
 endif(ENABLE_POSTINSTALL)
 
 ########################################################################
